@@ -28,6 +28,7 @@ public class GameController {
     @GetMapping("/{idBoard}/stop")
     @ApiOperation(value = "Выход из игры и деактивация доски")
     public void stopGame(@PathVariable("idBoard") Long idBoard, HttpSession session) {
+        session.invalidate();
         gameService.stopGame(idBoard);
     }
 
@@ -35,7 +36,6 @@ public class GameController {
     @ApiOperation(value = "Выполнение хода игрока")
     public StepOutput makeStep(@PathVariable("idBoard") Long idBoard, @RequestBody StepInput step,
                                HttpSession session) {
-        session.invalidate();
         return gameService.makeStep(idBoard, step);
     }
 }
